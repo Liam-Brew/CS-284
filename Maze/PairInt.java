@@ -1,4 +1,4 @@
-package main.java.Maze;
+package Maze;
 
 /**
  * Implements PairInt for use in maze backtracking. 

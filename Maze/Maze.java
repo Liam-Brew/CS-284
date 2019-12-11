@@ -1,4 +1,4 @@
-package main.java.Maze;
+package Maze;
 
 import java.util.ArrayList;
 import java.util.Stack;

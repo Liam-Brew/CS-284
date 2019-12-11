@@ -1,4 +1,4 @@
-package main.java.Maze;
+package Maze;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -56,6 +56,7 @@ public class MazeTest extends JFrame implements GridColors {
                 TwoDimGrid aGrid = new TwoDimGrid(nRows, nCols);
                 aGrid.recolor(bitMap, NON_BACKGROUND);
                 new MazeTest(aGrid);
+                br.close();
             }
         } catch (Exception ex) {
             System.err.println("Exception " + ex);
