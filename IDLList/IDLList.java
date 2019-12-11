@@ -1,9 +1,10 @@
-package main.java.IDLList;
+package IDLList;
 
 import java.util.ArrayList;
 
 /**
  * Class that handles basic methods of double linked lists.
+ * 
  * @author Liam Brew
  * @section CS 284 A
  * @pledge I pledge my honor that I have abided by the Stevens Honor System.
@@ -13,43 +14,42 @@ public class IDLList<E> {
 	// Inner Classes
 
 	/**
+	 * Contains data fields for stored data, next node and previous node.
+	 * 
 	 * @author Liam Brew Class representing the node of a double linked list.
-	 *         Contains data fields for stored data, next node and previous node.
-	 *
 	 * @param <E>
 	 */
-	public static class Node<E> {
-		// Data fields
-		private E data;
-		private Node<E> next;
-		private Node<E> prev;
+	private class Node<F> {
 
-		// Constructors
-		/**
-		 * Constructor that creates a node holding elem.
-		 * 
-		 * @param elem
-		 */
-		public Node(E elem) {
-			this.data = elem;
-			this.prev = null;
-			this.next = null;
-		}
+        private F data;
+        private Node<F> next;
+        private Node<F> prev;
 
-		/**
-		 * Constructor that creates a node holding elem, with a previous node of prev
-		 * and a next node of next.
-		 * 
-		 * @param elem
-		 * @param prev
-		 * @param next
-		 */
-		public Node(E elem, Node<E> prev, Node<E> next) {
-			this.data = elem;
-			this.prev = prev;
-			this.next = next;
-		}
-	}
+        /**
+         * Creates a node with no next or previous pointers.
+         * 
+         * @param data
+         */
+        public Node(F data) {
+            this.data = data;
+            next = null;
+            prev = null;
+        }
+
+        /**
+         * Creates a node with next and previous pointers.
+         * 
+         * @param data
+         * @param next
+         * @param prev
+         */
+        public Node(F data, Node<F> next, Node<F> prev) {
+            this.data = data;
+            this.next = next;
+            this.prev = prev;
+        }
+
+    }
 
 	// Data Fields
 	private Node<E> head;
@@ -74,6 +74,29 @@ public class IDLList<E> {
 	// Methods
 
 	/**
+	 * Adds elem at the head of the DLL.
+	 * 
+	 * @param elem The data to be added.
+	 * @return Always true (for purposes of this assignment).
+	 */
+	public boolean add(E elem) {
+        if (head == null) { // Empty list
+            head = new Node<E>(elem);
+            tail = head;
+        } else if (head == tail) { // Singleton list
+            head = new Node<E>(elem, tail, null);
+            tail.prev = head;
+        } else {
+            head = new Node<E>(elem, head, null);
+            head.next.prev = head;
+        }
+
+        indices.add(0, head);
+        size++;
+        return true;
+    }
+
+	/**
 	 * Adds elem at position index. Uses the index array for fast access.
 	 * 
 	 * @param index The location at which to add the data.
@@ -85,44 +108,20 @@ public class IDLList<E> {
 			throw new IndexOutOfBoundsException();
 		}
 
-		if (index == 0) { // Adds to start of list
+		if (index == 0) { //Head
 			add(elem);
 		} else {
 			Node<E> current = indices.get(index);
 			Node<E> newCurrent = new Node<>(elem, current, current.prev);
-
 			current.prev.next = newCurrent;
 			current.prev = newCurrent;
-
 			size++;
 			indices.add(index, newCurrent);
 		}
 		return true;
 	}
 
-	/**
-	 * Adds elem at the head of the DLL.
-	 * 
-	 * @param elem The data to be added.
-	 * @return Always true (for purposes of this assignment).
-	 */
-	public boolean add(E elem) {
-		if (head == null) { // Empty list
-			head = new Node<E>(elem);
-			tail = head;
-		} else if (head == tail) { // Singleton list
-			head = new Node<E>(elem, tail, null);
-			tail.prev = head;
-		} else {
-			head = new Node<E>(elem, head, null);
-			head.next.prev = head;
-		}
-
-		indices.add(0, head);
-		size++;
-		return true;
-	}
-
+	
 	/**
 	 * Adds elem as the new last element of the list (as the tail).
 	 * 
@@ -130,22 +129,24 @@ public class IDLList<E> {
 	 * @return Always true (for purposes of this assignment).
 	 */
 	public boolean append(E elem) {
-		Node<E> node = new Node<E>(elem, tail, null);
-		if (head == null) {// Empty list
-			head = new Node<E>(elem);
-			tail = head;
-			size++;
-			return indices.add(head);
+		if (head == null) { // Empty list
+            head = new Node<E>(elem);
+            tail = head;
+            size++;
+            return indices.add(head);
+        }
+
+        if (head == tail) { // Singleton list
+            tail = new Node<E>(elem, null, head);
+            head.next = tail;
+            size++;
+            return indices.add(tail);
 		}
-		if (head != null) {
-			tail.next = node;
-		} else {
-			head = node;
-		}
-		tail = node;
-		indices.add(size - 1, node);
-		size++;
-		return true;
+		
+        tail.next = new Node<E>(elem, null, tail);
+        tail = tail.next;
+        size++;
+        return indices.add(tail);
 	}
 
 	/**
@@ -182,7 +183,7 @@ public class IDLList<E> {
 	 */
 	public E getHead() {
 		// Empty list
-		if (size == 0)
+		if (head == null)
 			throw new IllegalArgumentException("Empty list!");
 		return head.data;
 	}
@@ -214,25 +215,24 @@ public class IDLList<E> {
 	 * @return Data of head.
 	 */
 	public E remove() {
-		// Empty list
-		if (head == null)
-			throw new IllegalStateException("Empty list!");
+		if (head == null) { //Empty list
+            throw new IllegalStateException();
+        }
 
-		// List contains 1 element...
-		if (size == 1) {
-			// ...removes only element of the list
-			head = tail = null;
-			indices.clear();
-			size--;
-			return null;
-		}
+        if (head == tail) { //Singleton List
+            Node<E> temp = head;
+            head = null;
+            tail = null;
+            size--;
+            indices.clear();
+            return temp.data;
+        }
 
-		E headData = head.data;
-		head = head.next;
-		head.prev = null;
-		size--;
-		indices.remove(0);
-		return headData;
+        Node<E> temp = head;
+        head = head.next;
+        indices.remove(0);
+        size--;
+        return temp.data;
 	}
 
 	/**
@@ -241,26 +241,25 @@ public class IDLList<E> {
 	 * @return Data of Tail
 	 */
 	public E removeLast() {
-		// Empty list
-		if (head == null)
-			throw new IllegalStateException("Empty list!");
+		if (head == null) { //Empty list
+            throw new IllegalStateException();
+        }
 
-		// List contains 1 element...
-		if (size == 1) {
-			// ...removes only element of the list
-			Node<E> current = tail;
-			head = tail = null;
-			indices.clear();
-			size = 0;
-			return current.data;
-		}
+        if (head == tail) { //Singleton list
+            Node<E> temp = tail;
+            head = null;
+            tail = null;
+            size = 0;
+            indices.clear();
+            return temp.data;
+        }
 
-		Node<E> current = tail;
-		tail = tail.prev;
-		tail.next = null;
-		indices.remove(size - 1);
-		size--;
-		return current.data;
+        Node<E> temp = tail;
+        tail = tail.prev;
+        tail.next = null;
+        indices.remove(size - 1);
+        size--;
+        return temp.data;
 	}
 
 	/**
@@ -270,35 +269,23 @@ public class IDLList<E> {
 	 * @return The data of the node located at that index.
 	 */
 	public E removeAt(int index) {
-		// Empty list
-		if (head == null)
-			throw new IllegalStateException("Empty list!");
+		if (index < 0 || index > size) { //Illegal index
+            throw new IllegalStateException("Illegal Index!");
+        }
 
-		// Index out of bounds
-		if (index > size - 1)
-			throw new IllegalStateException("Index out of bounds!");
+        if (index == 0) { // Head
+            return remove();
+        }
 
-		// Remove first
-		if (index == 0)
-			return this.remove();
+        if (index == size - 1) { // Tail
+            return removeLast();
+        }
 
-		// Remove Last
-		if (index == size - 1)
-			return this.removeLast();
-
-		// Iterates to find the index
-		Node<E> current = head;
-		int i = 0;
-		while (i < index) {
-			current = current.next;
-			i++;
-		}
-
-		E data = current.data;
-		current.prev.next = current.next;
-		size--;
-		indices.remove(index);
-		return data;
+        Node<E> current = indices.remove(index);
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
+        size--;
+        return current.data;
 	}
 
 	/**
@@ -309,21 +296,30 @@ public class IDLList<E> {
 	 * @return Boolean representing if the data was located.
 	 */
 	public boolean remove(E elem) {
-		// Empty list... not found
-		if (head == null)
-			return false;
+		if (elem.equals(head.data)) { // remove the first element
+			remove();
+			return true;
+		}
 
-		// Iterates through the list
+		if (elem.equals(tail.data)) { // remove the last element
+			removeLast();
+			return true;
+		}
+
 		Node<E> current = head;
-		int i = 0;
-		while (i < size) {
-			if (current.data == elem) {
-				this.removeAt(i);
+		int index = 0;
+		while (current != null) {
+			if (current.data.equals(elem)) {
+				current.prev.next = current.next;
+				current.next.prev = current.prev;
+				indices.remove(index);
+				size--;
 				return true;
 			}
 			current = current.next;
-			i++;
+			index++;
 		}
+
 		return false;
 	}
 
