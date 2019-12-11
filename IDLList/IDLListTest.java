@@ -1,16 +1,14 @@
-package main.java.IDLList;
+package IDLList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import IDLList.IDLList;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
-/**
- * Test class for IDLList.
- */
 public class IDLListTest {
 
 	@Test
-	void testAddIntE() {
+	public void testAddIntE() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -18,10 +16,10 @@ public class IDLListTest {
 		}
 
 		dll.add(3, 5);
-		assertEquals(5, dll.get(3));
+		assertEquals(Integer.valueOf(5), dll.get(3));
 
 		dll.add(0, 4);
-		assertEquals(4, dll.get(0));
+		assertEquals(Integer.valueOf(4), dll.get(0));
 
 		// An exception should be thrown here
 		try {
@@ -33,7 +31,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testAddE() {
+	public void testAddE() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -41,21 +39,21 @@ public class IDLListTest {
 		}
 
 		dll.add(1);
-		assertEquals(1, dll.get(0));
+		assertEquals(Integer.valueOf(1), dll.get(0));
 		assertTrue(dll.add(1));
 
 		dll.add(2);
-		assertEquals(2, dll.get(0));
+		assertEquals(Integer.valueOf(2), dll.get(0));
 		assertTrue(dll.add(1));
 
 		dll.add(3);
-		assertEquals(3, dll.get(0));
+		assertEquals(Integer.valueOf(3), dll.get(0));
 		assertTrue(dll.add(1));
 
 	}
 
 	@Test
-	void testAppend() {
+	public void testAppend() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -63,17 +61,17 @@ public class IDLListTest {
 		}
 
 		dll.append(10);
-		assertEquals(10, dll.get(dll.size() - 1));
+		assertEquals(Integer.valueOf(10), dll.get(dll.size() - 1));
 		assertTrue(dll.append(10));
 
 		dll.append(15);
-		assertEquals(15, dll.get(dll.size() - 1));
+		assertEquals(Integer.valueOf(15), dll.get(dll.size() - 1));
 		assertTrue(dll.append(15));
 
 	}
 
 	@Test
-	void testGet() {
+	public void testGet() {
 		// The success of the previous tests implies that get() works
 		IDLList<Integer> dll = new IDLList<>();
 
@@ -81,13 +79,13 @@ public class IDLListTest {
 			dll.add(i);
 		}
 
-		assertEquals(9, dll.get(0));
+		assertEquals(Integer.valueOf(9), dll.get(0));
 
-		assertEquals(0, dll.get(dll.size() - 1));
+		assertEquals(Integer.valueOf(0), dll.get(dll.size() - 1));
 	}
 
 	@Test
-	void testGetHead() {
+	public void testGetHead() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -106,7 +104,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testGetLast() {
+	public void testGetLast() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -125,7 +123,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testSize() {
+	public void testSize() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -140,7 +138,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testRemove() {
+	public void testRemove() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		// An exception should be thrown here
@@ -163,7 +161,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testRemoveLast() {
+	public void testRemoveLast() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		// An exception should be thrown here
@@ -185,7 +183,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testRemoveAt() {
+	public void testRemoveAt() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -208,7 +206,7 @@ public class IDLListTest {
 	}
 
 	@Test
-	void testRemoveE() {
+	public void testRemoveE() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
@@ -220,15 +218,15 @@ public class IDLListTest {
 		assertTrue(dll.remove(0));
 
 		dll.remove(0);
-		assertNotEquals(dll.get(dll.size() - 1), 0);
+		assertNotEquals(dll.get(dll.size() - 1), Integer.valueOf(0));
 
 		dll.append(9);
 		dll.append(9);
-		assertEquals(dll.get(dll.size() - 1), 9);
+		assertEquals(dll.get(dll.size() - 1), Integer.valueOf(9));
 	}
 
 	@Test
-	void testToString() {
+	public void testToString() {
 		IDLList<Integer> dll = new IDLList<>();
 
 		for (int i = 0; i < 10; i++) {
