@@ -1,4 +1,4 @@
-package main.java.Complexity;
+package Complexity;
 
 /**
  * Class representing time complexities of different methods.
