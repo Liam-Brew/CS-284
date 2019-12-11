@@ -1,4 +1,4 @@
-package main.java.BinaryNumber;
+package BinaryNumber;
 
 /**
  * Class representing operations of binary numbers. 
