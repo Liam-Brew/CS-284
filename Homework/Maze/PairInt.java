@@ -1,4 +1,4 @@
-package Maze;
+package Homework.Maze;
 
 /**
  * Implements PairInt for use in maze backtracking. 

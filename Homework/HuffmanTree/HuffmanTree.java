@@ -1,12 +1,11 @@
-package HuffmanTree;
+package Homework.HuffmanTree;
 
 import java.util.*;
 
 /*
  * Instructions: 
  * First: Read through the assignment specification, make sure you understand what the assignment is asking for.
- * Second: There are number of "TODO" instructions within this code, make sure to complete all of them fully.
- * Third: Test you code.
+ * Second: Test you code.
  */
 
 // Pledge: I pledge my honor that I have abided by the Stevens Honor System.

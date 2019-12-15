@@ -1,4 +1,4 @@
-package Treaps;
+package Homework.Treaps;
 
 import Treaps.Treap;
 

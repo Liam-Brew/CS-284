@@ -1,4 +1,4 @@
-package Treaps;
+package Homework.Treaps;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -298,7 +298,7 @@ public class Treap<E extends Comparable<E>> {
 	}
 
 	public static void main(String[] args) {
-		Treap testTree = new Treap<Integer>();
+		Treap<Integer> testTree = new Treap<Integer>();
 		testTree.add(4, 19);
 		testTree.add(2, 31);
 		testTree.add(6, 70);
