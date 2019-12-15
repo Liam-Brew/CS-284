@@ -1,4 +1,4 @@
-package Homework.BinaryNumber;
+
 
 /**
  * Class representing operations of binary numbers. 

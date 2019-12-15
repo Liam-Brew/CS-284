@@ -1,5 +1,3 @@
-package Homework.HuffmanTree;
-
 import java.util.*;
 
 /*

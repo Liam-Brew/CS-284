@@ -1,4 +1,3 @@
-package Homework.Maze;
 
 import java.awt.Color;
 import java.awt.Dimension;

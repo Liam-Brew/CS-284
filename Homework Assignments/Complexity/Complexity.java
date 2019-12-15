@@ -1,4 +1,3 @@
-package Homework.Complexity;
 
 /**
  * Class representing time complexities of different methods.

@@ -1,5 +1,3 @@
-package Homework.IDLList;
-
 import IDLList.IDLList;
 
 import static org.junit.Assert.*;

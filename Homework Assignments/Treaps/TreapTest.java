@@ -1,5 +1,3 @@
-package Homework.Treaps;
-
 import Treaps.Treap;
 
 import static org.junit.Assert.*;
